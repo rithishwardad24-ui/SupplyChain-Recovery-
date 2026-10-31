@@ -1,0 +1,8 @@
+{
+  "name": "Remix SmartSupply AI",
+  "description": "Autonomous Supply Chain Digital Twin \u0026 Recovery Agent platform with multi-agent disruption reasoning, 5-strategy optimization, verification, and dynamic adaptation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

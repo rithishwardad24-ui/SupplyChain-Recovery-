@@ -1,0 +1,342 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Represents an authenticated supply chain manager or operator",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Full name or display title"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["manager", "operator", "admin", "viewer"],
+          "description": "Role within supply chain operations"
+        },
+        "organization": {
+          "type": "string",
+          "description": "Company or department name"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of account creation"
+        }
+      },
+      "required": ["userId", "email", "role", "createdAt"]
+    },
+    "DisruptionRecord": {
+      "title": "Disruption Event Record",
+      "description": "Persistent record of an identified supply chain disruption shock",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique disruption ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of user who triggered or logged the disruption"
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable scenario title"
+        },
+        "scenarioType": {
+          "type": "string",
+          "description": "Classification category of the disruption"
+        },
+        "targetEntityId": {
+          "type": "string",
+          "description": "Target supply chain node ID"
+        },
+        "severityPercent": {
+          "type": "number",
+          "description": "Magnitude percentage of impairment (1-100)"
+        },
+        "expectedDelayDays": {
+          "type": "number",
+          "description": "Forecasted delay duration in days"
+        },
+        "affectedQuantityUnits": {
+          "type": "number",
+          "description": "Units impacted by disruption"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "ISO timestamp of event occurrence"
+        },
+        "isResolved": {
+          "type": "boolean",
+          "description": "Whether the disruption has been mitigated"
+        }
+      },
+      "required": ["id", "userId", "title", "targetEntityId", "severityPercent", "timestamp"]
+    },
+    "RecoveryExecution": {
+      "title": "Recovery Plan Execution Audit",
+      "description": "Persistent record of an approved and simulated recovery plan execution",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique execution record ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of approving manager"
+        },
+        "disruptionId": {
+          "type": "string",
+          "description": "Associated disruption event ID"
+        },
+        "planId": {
+          "type": "string",
+          "description": "Strategy ID (plan_a through plan_e)"
+        },
+        "planName": {
+          "type": "string",
+          "description": "Name of recovery strategy"
+        },
+        "recoveryCostUsd": {
+          "type": "number",
+          "description": "Total monetary cost of executed actions"
+        },
+        "ordersProtectedCount": {
+          "type": "number",
+          "description": "Number of customer orders shielded"
+        },
+        "verifiedStatus": {
+          "type": "string",
+          "description": "Status code from Verification Engine (PASSED, etc.)"
+        },
+        "netSavingsUsd": {
+          "type": "number",
+          "description": "Estimated net financial preservation in USD"
+        },
+        "executedAt": {
+          "type": "string",
+          "description": "ISO timestamp of execution approval"
+        }
+      },
+      "required": ["id", "userId", "disruptionId", "planId", "recoveryCostUsd", "executedAt"]
+    },
+    "AgentAuditEntry": {
+      "title": "Autonomous Agent Activity Audit Log",
+      "description": "Persistent audit trail for multi-agent reasoning, simulation, and decisions",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique audit log ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of active user session"
+        },
+        "agentId": {
+          "type": "string",
+          "description": "Logical agent identifier"
+        },
+        "agentName": {
+          "type": "string",
+          "description": "Full display name of the agent"
+        },
+        "actionTaken": {
+          "type": "string",
+          "description": "Summary of action executed by agent"
+        },
+        "reasoningTrace": {
+          "type": "string",
+          "description": "Deterministic rationale output"
+        },
+        "dataClassification": {
+          "type": "string",
+          "enum": ["KNOWN", "ASSUMED"],
+          "description": "Data classification badge"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "ISO timestamp"
+        }
+      },
+      "required": ["id", "userId", "agentId", "actionTaken", "timestamp"]
+    },
+    "CompanyIntelligence": {
+      "title": "Company & Supplier Intelligence Record",
+      "description": "Extracted enterprise company profile, risk metrics, and supply capabilities pulled by AI Agent",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique intelligence record ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of user who initiated the pull"
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Official company name"
+        },
+        "domain": {
+          "type": "string",
+          "description": "Company domain or website"
+        },
+        "location": {
+          "type": "string",
+          "description": "Headquarters or primary plant location"
+        },
+        "tier": {
+          "type": "string",
+          "description": "Supplier enterprise tier"
+        },
+        "industry": {
+          "type": "string",
+          "description": "Primary industry sector"
+        },
+        "reliabilityScore": {
+          "type": "number",
+          "description": "Reliability score from 0 to 100"
+        },
+        "dailyCapacityUnits": {
+          "type": "number",
+          "description": "Daily output volume capacity"
+        },
+        "baseLeadTimeDays": {
+          "type": "number",
+          "description": "Standard transit/lead time in days"
+        },
+        "financialHealthScore": {
+          "type": "number",
+          "description": "Solvency rating score from 0 to 100"
+        },
+        "esgRating": {
+          "type": "string",
+          "description": "ESG sustainability rating grade"
+        },
+        "riskLevel": {
+          "type": "string",
+          "enum": ["CRITICAL", "HIGH", "MODERATE", "LOW"],
+          "description": "Overall assessed risk level"
+        },
+        "operationalStatus": {
+          "type": "string",
+          "description": "Live operational telematics status"
+        },
+        "digitalTwinSupplierId": {
+          "type": "string",
+          "description": "Mapped digital twin node ID"
+        },
+        "extractedAt": {
+          "type": "string",
+          "description": "ISO timestamp of intelligence pull"
+        }
+      },
+      "required": ["id", "userId", "companyName", "riskLevel", "extractedAt"]
+    },
+    "SupplierNode": {
+      "title": "Digital Twin Supplier Node",
+      "description": "Persistent representation of a supply chain supplier in the digital twin",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Supplier unique node ID (e.g. SUP-01)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Supplier company name"
+        },
+        "location": {
+          "type": "string",
+          "description": "City, Country of origin"
+        },
+        "reliabilityScore": {
+          "type": "number",
+          "description": "Historical reliability score (0-100)"
+        },
+        "baseLeadTimeDays": {
+          "type": "number",
+          "description": "Lead time in days"
+        },
+        "dailyCapacityUnits": {
+          "type": "number",
+          "description": "Daily production capacity units"
+        },
+        "costMultiplier": {
+          "type": "number",
+          "description": "Unit cost factor"
+        },
+        "carbonIntensityKgPerUnit": {
+          "type": "number",
+          "description": "Carbon emissions factor"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["healthy", "warning", "disrupted", "recovery", "inactive"],
+          "description": "Node health state"
+        },
+        "contactEmail": {
+          "type": "string",
+          "description": "Supplier contact address"
+        },
+        "userId": {
+          "type": "string",
+          "description": "User UID who registered or updated the node"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        }
+      },
+      "required": ["id", "name", "reliabilityScore", "baseLeadTimeDays", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "User profiles, roles, and enterprise organization data"
+    },
+    "/disruptions/{disruptionId}": {
+      "schema": {
+        "$ref": "#/entities/DisruptionRecord"
+      },
+      "description": "Persistent supply chain disruptions identified across network"
+    },
+    "/recovery_executions/{executionId}": {
+      "schema": {
+        "$ref": "#/entities/RecoveryExecution"
+      },
+      "description": "Approved and verified recovery plan execution records"
+    },
+    "/audit_logs/{logId}": {
+      "schema": {
+        "$ref": "#/entities/AgentAuditEntry"
+      },
+      "description": "Multi-agent autonomous decisions, traces, and reasoning logs"
+    },
+    "/company_intelligence/{intelligenceId}": {
+      "schema": {
+        "$ref": "#/entities/CompanyIntelligence"
+      },
+      "description": "Supplier intelligence dossiers pulled by the AI agent"
+    },
+    "/suppliers/{supplierId}": {
+      "schema": {
+        "$ref": "#/entities/SupplierNode"
+      },
+      "description": "Digital twin supplier nodes synced to database"
+    }
+  }
+}
